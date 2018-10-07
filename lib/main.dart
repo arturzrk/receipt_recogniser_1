@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:receipt_recogniser_1/hometab.dart';
 
 
 void main() => runApp(new TabbedApp());
+
 
 class TabbedApp extends StatelessWidget {
   @override
@@ -22,7 +24,7 @@ class TabbedApp extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Icon(Icons.home),
+              HomeTab(),
               Icon(Icons.dashboard),
               Icon(Icons.camera)
             ]
