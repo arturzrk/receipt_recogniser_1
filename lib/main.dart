@@ -1,8 +1,15 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:receipt_recogniser_1/cameratab.dart';
 import 'package:receipt_recogniser_1/hometab.dart';
+import 'package:camera/camera.dart';
 
+List<CameraDescription> cameras;
 
-void main() => runApp(new TabbedApp());
+Future<Null> main() async {
+  cameras = await availableCameras();
+  runApp(new TabbedApp());
+}
 
 
 class TabbedApp extends StatelessWidget {
@@ -26,7 +33,7 @@ class TabbedApp extends StatelessWidget {
             children: [
               HomeTab(),
               Icon(Icons.dashboard),
-              Icon(Icons.camera)
+              CameraTab(cameras)
             ]
           )
         )
