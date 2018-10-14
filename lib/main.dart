@@ -5,6 +5,7 @@ import 'package:receipt_recogniser_1/hometab.dart';
 import 'package:camera/camera.dart';
 
 List<CameraDescription> cameras;
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 Future<Null> main() async {
   cameras = await availableCameras();
@@ -19,6 +20,7 @@ class TabbedApp extends StatelessWidget {
       home: new DefaultTabController(
         length: 3,
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             bottom: TabBar(
               tabs: [
@@ -33,7 +35,7 @@ class TabbedApp extends StatelessWidget {
             children: [
               HomeTab(),
               Icon(Icons.dashboard),
-              CameraTab(cameras)
+              CameraTab(cameras,_scaffoldKey)
             ]
           )
         )
