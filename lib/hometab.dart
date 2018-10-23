@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:receipt_recogniser_1/model/event.dart';
+import 'package:receipt_recogniser_1/repo/event/eventstore.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -8,52 +11,53 @@ class HomeTab extends StatefulWidget {
 }
 
 class HomeTabState extends State<HomeTab> {
-  int clickCount = 2;
 
-  void incrementCounter() {
-    setState(() {
-          clickCount++;
-        });
-  }
+  final List<Event> events = <Event>[];
+  final Injector injector = Injector.getInjector();
+  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
+  EventStore service;
 
-  void decrementCounter() {
+  @override
+  void initState() {
+    super.initState();
+    service = injector.get<EventStore>();
+    events.addAll(service.getEvents());
     setState(() {
-          clickCount--;
+          
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            '$clickCount',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold
-            )
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RaisedButton(
-                child: Text(
-                  'Increment'
-                ),
-                onPressed: incrementCounter,
-              ),
-              RaisedButton(
-                child: Text(
-                  'Decrement'
-                ),
-                onPressed: decrementCounter,
-              )
-            ]
-          )
-        ]
-      )
+    return buildEventList();
+  }
+
+  Widget buildEventList() {
+    return ListView.builder(
+      itemBuilder: (context, i ) {
+        if(i.isOdd) return Divider();
+        final index = i ~/ 2;
+        return buildEventRow(events[index]);
+      },
+      itemCount: events.length * 2,
     );
   }
+
+  Widget buildEventRow(Event event) {
+    return ListTile(
+      leading: categoryIcon[event.category],
+      title: Text(
+        event.title,
+        style: _biggerFont,
+      ),
+      subtitle: buildEventSubtitle(event), 
+    );
+  }
+
+  Widget buildEventSubtitle(Event event) {
+    return Text('${event.occurenceDate.difference(DateTime.now()).inDays} days till next occurence.'
+    );
+  }
+
+
 }
