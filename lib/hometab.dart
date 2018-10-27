@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:receipt_recogniser_1/model/event.dart';
 import 'package:receipt_recogniser_1/repo/event/eventstore.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:receipt_recogniser_1/forms/eventform.dart';
+
 
 class HomeTab extends StatefulWidget {
   @override
@@ -29,7 +31,19 @@ class HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return buildEventList();
+    return Scaffold(
+     body:  buildEventList(),
+     floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute( builder: (context) => EventForm())
+          );
+        },
+        tooltip: 'Add New Event',
+        child: new Icon(Icons.add),
+      ),
+    );
   }
 
   Widget buildEventList() {
@@ -58,6 +72,4 @@ class HomeTabState extends State<HomeTab> {
     return Text('${event.occurenceDate.difference(DateTime.now()).inDays} days till next occurence.'
     );
   }
-
-
 }

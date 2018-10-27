@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:receipt_recogniser_1/cameratab.dart';
+import 'package:receipt_recogniser_1/forms/eventform.dart';
 import 'package:receipt_recogniser_1/hometab.dart';
 import 'package:camera/camera.dart';  
 import 'package:receipt_recogniser_1/repo/event/eventstore.dart';
@@ -43,7 +44,7 @@ class TabbedApp extends StatelessWidget {
           body: TabBarView(
             children: [
               HomeTab(),
-              Icon(Icons.dashboard),
+              EventForm(),
               CameraTab(cameras,_scaffoldKey)
             ]
           )

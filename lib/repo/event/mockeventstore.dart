@@ -7,19 +7,19 @@ class MockEventStore implements EventStore {
   final cEvents =  [
     Event(
       title: 'first',
-      category: Category.Hydrofor,
+      category: EventCategory.Hydrofor,
       occurenceDate: DateTime.now(),
       reoccurenceDaysCount: 90
     ),
     Event(
       title: 'second',
-      category: Category.Rekuperator,
+      category: EventCategory.Rekuperator,
       occurenceDate: DateTime.now().add(Duration(days: 20)),
       reoccurenceDaysCount: 365
     ),
     Event(
       title: 'third',
-      category: Category.Szambo,
+      category: EventCategory.Szambo,
       occurenceDate: DateTime.now().add(Duration(days: 30)),
       reoccurenceDaysCount: 30
     )
